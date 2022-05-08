@@ -11,6 +11,9 @@
 import Navbar from './components/NavBar.vue'
 export default {
   name: 'App',
+  data: () => ({
+    user = null
+  }),
   components: {
     Navbar
   }
