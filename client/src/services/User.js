@@ -13,7 +13,18 @@ export const RegisterUser = async (data) => {
       return res.data
   }
 
-export const UpdateUser = async (userId) => {
-    const res = await Client.put(`/user/${userId}`)
+export const UpdateUser = async (userId, data) => {
+    const res = await Client.put(`/users/${userId}`, data)
     return res.data
 }
+
+export const DeleteUser = async (userId, passwordBody) => {
+    const res = await Client.delete(`/users/${userId}`, passwordBody)
+    return res.data
+}
+
+export const getTicketsByUserId = async (userId) => {
+    const res = await Client.get(`/tickets/${userId}`)
+    return res.data
+}
+
