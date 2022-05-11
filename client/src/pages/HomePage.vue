@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div>Hello
         <BookingForm @getPassegerInfo="getPassegerInfo" />
     </div>
 </template>
@@ -9,9 +9,9 @@ import BookingForm from '../components/BookingForm.vue'
 export default {
     name: 'HomePage',
     data: () => ({
-        passenger = null
+        passenger : null
     }),
-    componets: {
+    components: {
         BookingForm
     },
     methods: {

@@ -1,21 +1,37 @@
 <template>
   <div id="app">
-    <NavBar />
+    <ui-drawer>
+      <ui-drawer-header>
+        <ui-drawer-title>Menu</ui-drawer-title>
+      </ui-drawer-header>
+      <ui-drawer-content>
+        <ui-nav>
+          <ui-nav-item active><router-link to="/"  name="HomePage">Home</router-link></ui-nav-item>
+          <ui-nav-item active><router-link to="/register">Register</router-link></ui-nav-item>
+          <ui-nav-item active><router-link to="/login">Login</router-link></ui-nav-item>
+        </ui-nav>
+      </ui-drawer-content>
+    </ui-drawer>
     <main>
-      <router-view></router-view>
+      <router-view @setUser="setUser"></router-view>
     </main>
   </div>
 </template>
 
 <script>
-import Navbar from './components/NavBar.vue'
+// import NavBar from './components/NavBar.vue'
 export default {
   name: 'App',
   data: () => ({
-    user = null
+    user : null
   }),
   components: {
-    Navbar
+    // NavBar
+  },
+  methods: {
+    setUser(user){
+      this.user = user
+    }
   }
 }
 </script>
