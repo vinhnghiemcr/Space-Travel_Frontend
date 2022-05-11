@@ -4,6 +4,9 @@
 
 <script>
 export default {
-    name: 'UserPage'
+    name: 'UserPage',
+    props: {
+        user: Object
+    }
 }
 </script>

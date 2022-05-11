@@ -13,7 +13,7 @@
       </ui-drawer-content>
     </ui-drawer>
     <main>
-      <router-view @setUser="setUser"></router-view>
+      <router-view @setUser="setUser" :user="user"></router-view>
     </main>
   </div>
 </template>
