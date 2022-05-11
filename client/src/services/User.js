@@ -12,3 +12,8 @@ export const RegisterUser = async (data) => {
       const res = await Client.post('/users/register', data)
       return res.data
   }
+
+export const UpdateUser = async (userId) => {
+    const res = await Client.put(`/user/${userId}`)
+    return res.data
+}
