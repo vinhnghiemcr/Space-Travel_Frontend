@@ -1,12 +1,12 @@
 <template>
     <div>
         <form @submit="onSubmit" >
-            <div>
-                <label for="fname">First Name:</label>
-                <input type="text" name="fname" :value="fname" placeholder="Enter your first name" @input="onChange" required />
-                <label for="lname">Last Name:</label>
+            <div  class="form-floating mb-3" >
+                <!-- <label for="fname">First Name:</label> -->
+                <input id="fname" type="text" name="fname" :value="fname" placeholder="Enter your first name" @input="onChange" required />
+                <!-- <label for="lname">Last Name:</label> -->
                 <input type="text" name="lname" :value="lname" placeholder="Enter your last name" @input="onChange" required />
-                <label for="email">Last Name:</label>
+                <!-- <label for="email">Last Name:</label> -->
                 <input type="text" name="email" :value="email" placeholder="Enter your email" @input="onChange" required />
             </div>
             <b-button class="mt-3" @click="handleClickSubmit">Submit</b-button>

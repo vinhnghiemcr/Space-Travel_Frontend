@@ -76,8 +76,8 @@ export default {
     methods: {
         async getPassegerInfo(passenger) {
             this.passenger = passenger
-            const res = await BookTicket(this.user, passenger, this.flight )
-            console.log(res)
+            const ticket = await BookTicket(this.user, passenger, this.flight )
+            this.$router.push(`/tickets/${ticket.id}`)
         },
         toggleShow() {
             this.show = !this.show
