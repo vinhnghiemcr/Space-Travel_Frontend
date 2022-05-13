@@ -51,8 +51,12 @@ import SpaceFlightRoundTripForm from '../components/SpaceFlightRoundTripForm.vue
 import FlightCard from '../components/FlightCard.vue'
 
 import { searchFlight } from '../services/Flight'
+import { BookTicket } from '../services/Ticket'
 export default {
     name: 'HomePage',
+    props: {
+        user: Object
+    },
     data: () => ({
         passenger : null,
         flight: null,
@@ -70,8 +74,10 @@ export default {
         FlightCard
     },
     methods: {
-        getPassegerInfo(passenger) {
+        async getPassegerInfo(passenger) {
             this.passenger = passenger
+            const res = await BookTicket(this.user, passenger, this.flight )
+            console.log(res)
         },
         toggleShow() {
             this.show = !this.show
