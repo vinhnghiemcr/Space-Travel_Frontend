@@ -6,7 +6,7 @@
             overlay
             img-src="https://thumbs.dreamstime.com/z/flight-route-aircraft-shape-heart-smoky-line-trace-airliner-realistic-icon-airplane-blue-sky-clouds-vector-d-144806046.jpg"
             img-alt="Image"                        
-            style="max-width: 35em; max-height: auto;"
+            style="max-width: 40em; max-height: auto;"
             class="mb-2"
         >    {{displayDate()}} 
             
@@ -34,14 +34,7 @@
                 Price: ${{99}}
             </b-card-text>
 
-            <!-- <b-card-text>
-                From: {{flight.arival_airport.name}}
-            </b-card-text>
-            <b-card-text>
-                Aircraft: {{flight.aircraft.type + " " + flight.aircraft.name}}
-            </b-card-text> -->
-
-            <!-- <b-button href="#" variant="primary">Go somewhere</b-button>  -->
+            <b-button @click="handleSelect" variant="info">Select</b-button> 
         </b-card>
     </div>
 </template>
@@ -67,7 +60,10 @@ export default {
                 minutes = '0' + minutes
             } 
             return  date.getHours() + ':' + minutes + ' CST'
-        }        
+        },
+        handleSelect(){
+            this.$emit('toggleBooking', this.flight)
+        }     
     }
 }
 </script>

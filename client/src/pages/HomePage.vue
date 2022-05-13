@@ -26,11 +26,11 @@
                 </b-tabs>
                 <div class="result" v-if="flights">
                     Show results here
-                    <FlightCard v-for="flight in flights" :key="flight.id" :flight="flight" />
+                    <FlightCard v-for="flight in flights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" />
                 </div>
                 <div class="result" v-if="returnFlights">
                     Return Flights:
-                    <FlightCard v-for="flight in returnFlights" :key="flight.id" :flight="flight" />
+                    <FlightCard v-for="flight in returnFlights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" />
                 </div>
             </div>
             
@@ -51,9 +51,11 @@ export default {
     name: 'HomePage',
     data: () => ({
         passenger : null,
+        flight: null,
         show: false,
         flights: null,
-        returnFlights: null
+        returnFlights: null,
+        booking: false
     }),
     components: {
         // BookingForm,
@@ -82,9 +84,12 @@ export default {
                 const res = await searchFlight(flightType, ticketType, flight1, flight2)
                 this.flights = res.flights
                 this.returnFlights = res.returnFlights
-            }
-            
+            }            
         },
+        toggleBooking(flight){
+            this.flight = flight
+            this.booking = !this.booking
+        }
     }
 
 }
