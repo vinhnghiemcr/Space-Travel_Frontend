@@ -83,18 +83,16 @@ export default {
             this.show = !this.show
         },
         async handleClickSearch(flightType, ticketType, flight1, flight2){
-            // this.show = true
+            this.show = true
             if ( ticketType === 'one way'){
                 const flights = await searchFlight(flightType, ticketType, flight1)
-                // this.show = false
-                // setTimeout(this.toggleShow, 1000)
                 this.flights = flights
             } else {
-                console.log(flight1, flight2, "Data from round trip")
                 const res = await searchFlight(flightType, ticketType, flight1, flight2)
                 this.flights = res.flights
                 this.returnFlights = res.returnFlights
-            }            
+            }             
+            setTimeout(this.toggleShow, 1000)                      
         },
         toggleBooking(flight){
             this.flight = flight
