@@ -1,6 +1,10 @@
 <template>
     <div>
-        <b-overlay :show="show" rounded="sm">
+        <div v-if="booking">
+            <BookingForm @getPassegerInfo="getPassegerInfo" />
+
+        </div>
+        <b-overlay :show="show" rounded="sm" v-else>
             <div :aria-hidden="show ? 'true' : null">
                 <b-tabs content-class="mt-3">
                     <b-tab title="Space Flight" active>
@@ -39,7 +43,7 @@
 </template>
 
 <script>
-// import BookingForm from '../components/BookingForm.vue'
+import BookingForm from '../components/BookingForm.vue'
 import DateAirportForm from '../components/DateAirportForm.vue'
 import FlightRoundTripForm from '../components/FlightRoudTripForm.vue'
 import DatePlanetForm from '../components/DatePlanetForm.vue'
@@ -58,7 +62,7 @@ export default {
         booking: false
     }),
     components: {
-        // BookingForm,
+        BookingForm,
         DateAirportForm,
         FlightRoundTripForm,
         DatePlanetForm,
