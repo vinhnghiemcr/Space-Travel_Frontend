@@ -1,17 +1,16 @@
 <template>
+
   <div id="app">
-    <ui-drawer>
-      <ui-drawer-header>
-        <ui-drawer-title>Menu</ui-drawer-title>
-      </ui-drawer-header>
-      <ui-drawer-content>
-        <ui-nav>
-          <ui-nav-item active><router-link to="/"  name="HomePage">Home</router-link></ui-nav-item>
-          <ui-nav-item active><router-link to="/register">Register</router-link></ui-nav-item>
-          <ui-nav-item active><router-link to="/login">Login</router-link></ui-nav-item>
-        </ui-nav>
-      </ui-drawer-content>
-    </ui-drawer>
+    
+    <div class="top-bar">
+      <NavBar />
+
+    </div>
+        <!-- <router-link to="/" name="HomePage">Home</router-link>
+        <router-link to="/register">Register</router-link>
+        <router-link to="/login">Login</router-link> -->
+     
+    
     <main>
       <router-view @setUser="setUser" :user="user"></router-view>
     </main>
@@ -19,14 +18,14 @@
 </template>
 
 <script>
-// import NavBar from './components/NavBar.vue'
+import NavBar from './components/NavBar.vue'
 export default {
   name: 'App',
   data: () => ({
     user : null
   }),
   components: {
-    // NavBar
+    NavBar
   },
   methods: {
     setUser(user){
@@ -43,6 +42,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
+/* .top-bar {
+  background-image: url('https://media.wired.com/photos/59268c5dcfe0d93c474309a2/master/w_1600,c_limit/BSP_054.jpg');
+  background-size: cover;
+  color: aquamarine;
+  height: 10vh;
+} */
+
 </style>

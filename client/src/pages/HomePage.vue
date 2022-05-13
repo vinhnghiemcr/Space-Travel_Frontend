@@ -6,51 +6,85 @@
                     <b-tab title="Space Flight" active>
                         <b-tabs content-class="mt-3">
                             <b-tab title="Round-Trip" active>
-                                <BookingForm @getPassegerInfo="getPassegerInfo" />
+                                <SpaceFlightRoundTripForm @handleClickSearch="handleClickSearch" />
                             </b-tab>
-                            <b-tab title="One-Way"><p>I'm the second tab</p></b-tab>
+                            <b-tab title="One-Way">
+                                <DatePlanetForm @handleClickSearch="handleClickSearch"/>
+                            </b-tab>
                     </b-tabs>
                     </b-tab>
                     <b-tab title="Flight">
                         <b-tabs content-class="mt-3">
                             <b-tab title="Round-Trip" active>
-                                <BookingForm @getPassegerInfo="getPassegerInfo" />
+                                <FlightRoundTripForm @handleClickSearch="handleClickSearch" />
                             </b-tab>
-                            <b-tab title="One-Way"><p>I'm the second tab</p></b-tab>
-                            
+                            <b-tab title="One-Way" active>
+                                <DateAirportForm @handleClickSearch="handleClickSearch"/>
+                            </b-tab>                            
                         </b-tabs>
-                    </b-tab>
-                    
+                    </b-tab>                    
                 </b-tabs>
-            
+                <div class="result" v-if="flights">
+                    Show results here
+                    <FlightCard v-for="flight in flights" :key="flight.id" :flight="flight" />
+                </div>
+                <div class="result" v-if="returnFlights">
+                    Return Flights:
+                    <FlightCard v-for="flight in returnFlights" :key="flight.id" :flight="flight" />
+                </div>
             </div>
-            <b-button class="mt-3" @click="handleClick">Search</b-button>
+            
         </b-overlay>
     </div>
 </template>
 
 <script>
-import BookingForm from '../components/BookingForm.vue'
+// import BookingForm from '../components/BookingForm.vue'
+import DateAirportForm from '../components/DateAirportForm.vue'
+import FlightRoundTripForm from '../components/FlightRoudTripForm.vue'
+import DatePlanetForm from '../components/DatePlanetForm.vue'
+import SpaceFlightRoundTripForm from '../components/SpaceFlightRoundTripForm.vue'
+import FlightCard from '../components/FlightCard.vue'
+
+import { searchFlight } from '../services/Flight'
 export default {
     name: 'HomePage',
     data: () => ({
         passenger : null,
-        show: false
+        show: false,
+        flights: null,
+        returnFlights: null
     }),
     components: {
-        BookingForm
+        // BookingForm,
+        DateAirportForm,
+        FlightRoundTripForm,
+        DatePlanetForm,
+        SpaceFlightRoundTripForm,
+        FlightCard
     },
     methods: {
         getPassegerInfo(passenger) {
             this.passenger = passenger
         },
-        handleClick(){
-            this.show = true
-            setTimeout(this.toggleShow, 3000)
-        },
         toggleShow() {
             this.show = !this.show
-        }
+        },
+        async handleClickSearch(flightType, ticketType, flight1, flight2){
+            // this.show = true
+            if ( ticketType === 'one way'){
+                const flights = await searchFlight(flightType, ticketType, flight1)
+                // this.show = false
+                // setTimeout(this.toggleShow, 1000)
+                this.flights = flights
+            } else {
+                console.log(flight1, flight2, "Data from round trip")
+                const res = await searchFlight(flightType, ticketType, flight1, flight2)
+                this.flights = res.flights
+                this.returnFlights = res.returnFlights
+            }
+            
+        },
     }
 
 }
