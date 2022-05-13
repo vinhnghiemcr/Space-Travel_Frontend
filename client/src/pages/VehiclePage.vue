@@ -1,17 +1,25 @@
 <template>
-    <div></div>
+    <div>Hello</div>
 </template>
 
 <script>
+import { GetVehicle } from '../services/Vehicle'
 export default {
     name: "VehicalPage",
     data: () => ({
         id: null,
-        type: ''
+        type: '',
+        vehicle: null
     }),
     mounted(){
-        this.id = this.$route.params.id
         this.type = this.$route.params.type
+        this.id = this.$route.params.id
+        this.getVehicle()
+    },
+    methods: {
+        async getVehicle() {
+            this.vehicle = await GetVehicle(this.type, this.id)
+        }
     }
 }
 </script>
