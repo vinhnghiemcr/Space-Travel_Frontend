@@ -13,7 +13,7 @@
         </b-navbar-nav>
       </b-navbar> -->
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container-fluid">
           <a class="navbar-brand" href="/"><img src="../assets/infinity-03.png" class="d-inline-block align-top" alt="Kitten"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

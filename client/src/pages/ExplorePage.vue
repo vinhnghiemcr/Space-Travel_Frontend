@@ -3,16 +3,19 @@
         <div class="card" style="width: 18rem;" v-for="(planet, i) in planets" :key="i">
             <img :src="images[i]" class="card-img-top" alt="planet img">
             <div class="card-body">
-                <a href="#" class="btn btn-info">{{planet}}</a>
+                <a :href="'destination/planet/' + IDs[i]" class="btn btn-info">{{planet}}</a>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { GetPlanets } from '../services/Destination'
+
 export default {
     name: "ExplorePage",
     data: () => ({
+        IDs: [],
         planets: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
         images: [
             'https://i.natgeofe.com/n/c6f7cee9-cde6-44a2-a686-9a80f5bfc1e8/01_mercury_pia15190_orig_4x3.jpg',
@@ -24,7 +27,18 @@ export default {
             'https://ychef.files.bbci.co.uk/976x549/p0257vk5.jpg',
             'https://imageio.forbes.com/specials-images/imageserve/648792456/Neptune/960x0.jpg?fit=bounds&format=jpg&width=960'
         ]
-    })
+    }),
+    mounted() {
+        this.getPlanets()
+    },
+    methods: {
+        async getPlanets(){
+            const data = await GetPlanets()
+            const ids =this.planets.map(planet => data.find((e => e.name.toLowerCase() === planet.toLowerCase())).id )
+            console.log(ids, "IDS")
+            this.IDs = ids
+        }
+    }
 }
 </script>
 
