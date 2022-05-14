@@ -9,3 +9,8 @@ export const GetDestination = async (type, id) => {
         return res.data
     } else return null
 }
+
+export const GetPlanets = async () => {
+    const res = await Client.get('planets')
+    return res.data
+}

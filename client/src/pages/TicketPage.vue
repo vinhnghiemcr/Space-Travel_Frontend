@@ -9,10 +9,11 @@
 import axios from 'axios'
 import TicketCard from '../components/TicketCard.vue'
 import { GetTicket } from '../services/Ticket'
+
 export default {
     name: 'TicketPage',
     components: {
-        TicketCard
+        TicketCard,        
     },
     data: () => ({
         ticket: null,

@@ -18,7 +18,8 @@
     "vue": "^3.2.33",
     "vue-3d-model": "^1.4.0",
     "vue-moment": "^4.1.0",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue3-google-map": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
