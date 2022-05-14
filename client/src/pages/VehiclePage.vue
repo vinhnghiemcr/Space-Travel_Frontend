@@ -6,12 +6,6 @@
         <div v-else>
             <SpacecraftCard :spacecraft="vehicle" />
         </div>
-        
-        
-        
-    </div>
-    <div v-else>
-
     </div>
 </template>
 
