@@ -2,7 +2,6 @@
     <div>
         <div v-if="booking">
             <BookingForm @getPassegerInfo="getPassegerInfo" />
-
         </div>
         <b-overlay :show="show" rounded="sm" v-else>
             <div :aria-hidden="show ? 'true' : null">

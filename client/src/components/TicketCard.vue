@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="ticket">
         <div class="box">
   <div class="clip"></div>
   <ul class="left">
@@ -41,13 +41,14 @@
     <span class="airline airlineslip">Infinitude</span>
     <span class="boarding">Boarding pass</span>
     <div class="content">
-      <span class="jfk">{{ticket['flight']['departure_airport'].code}}</span>
+      <span class="jfk"><router-link :to="departureLink" name="Destination">{{ticket['flight']['departure_airport'].code}}</router-link></span>
       <span class="plane"><svg clip-rule="evenodd" fill-rule="evenodd" height="60" width="60" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><g stroke="#222"><line fill="none" stroke-linecap="round" stroke-width="30" x1="300" x2="55" y1="390" y2="390"/><path d="M98 325c-9 10 10 16 25 6l311-156c24-17 35-25 42-50 2-15-46-11-78-7-15 1-34 10-42 16l-56 35 1-1-169-31c-14-3-24-5-37-1-10 5-18 10-27 18l122 72c4 3 5 7 1 9l-44 27-75-15c-10-2-18-4-28 0-8 4-14 9-20 15l74 63z" fill="#222" stroke-linejoin="round" stroke-width="10"/></g></svg></span>
-      <span class="sfo">{{ticket['flight']['arrival_airport'].code}}</span>
+      <span class="sfo"><router-link :to="arrivalLink" name="Destination">{{ticket['flight']['arrival_airport'].code}}</router-link></span>
+      <span ><img class="logo" src="../assets/infinity-03.png" alt=""></span>
       
-      <span class="jfk jfkslip">{{ticket['flight']['departure_airport'].code}}</span>
+      <span class="jfk jfkslip"><router-link :to="departureLink" name="Destination">{{ticket['flight']['departure_airport'].code}}</router-link></span>
       <span class="plane planeslip"><svg clip-rule="evenodd" fill-rule="evenodd" height="50" width="50" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg"><g stroke="#222"><line fill="none" stroke-linecap="round" stroke-width="30" x1="300" x2="55" y1="390" y2="390"/><path d="M98 325c-9 10 10 16 25 6l311-156c24-17 35-25 42-50 2-15-46-11-78-7-15 1-34 10-42 16l-56 35 1-1-169-31c-14-3-24-5-37-1-10 5-18 10-27 18l122 72c4 3 5 7 1 9l-44 27-75-15c-10-2-18-4-28 0-8 4-14 9-20 15l74 63z" fill="#222" stroke-linejoin="round" stroke-width="10"/></g></svg></span>
-      <span class="sfo sfoslip">{{ticket['flight']['arrival_airport'].code}}</span>
+      <span class="sfo sfoslip"><router-link :to="arrivalLink" name="Destination">{{ticket['flight']['arrival_airport'].code}}</router-link></span>
       <div class="sub-content">
         <span class="watermark">Infinitude</span>
         <span class="name">PASSENGER NAME<br><span>{{ticket.passenger.fname + ', ' + ticket.passenger.lname}}</span></span>
@@ -56,9 +57,11 @@
         <span class="seat">SEAT<br><span>--</span></span> -->
         <img v-if="route" :src="route" alt="qrcode" title="" id="qrcode"/>
         <span class="boardingtime">BOARDING TIME<br><span>{{ticket['flight'].date + " " + ticket['flight'].time}}</span></span>
-         <span class="flight flightslip">FLIGHT N&deg;<br><span>{{ticket['flight'].id}}</span></span>
-          <span class="seat seatslip">SEAT<br><span>--</span></span>
-         <span class="name nameslip">PASSENGER NAME<br><span>{{ticket.passenger.fname + ', ' + ticket.passenger.lname}}</span></span>
+        <span class="aircraft">Vehicle<br><span><router-link :to="vehicleLink" name="Vehicle">{{ticket['flight']['aircraft'].name}}</router-link></span></span>
+        
+        <span class="flight flightslip">FLIGHT N&deg;<br><span>{{ticket['flight'].id}}</span></span>
+        <span class="seat seatslip">SEAT<br><span>--</span></span>
+        <span class="name nameslip">PASSENGER NAME<br><span>{{ticket.passenger.fname + ', ' + ticket.passenger.lname}}</span></span>
       </div>
     </div>
   </div>
@@ -72,11 +75,28 @@ export default {
     props: {
         ticket: Object,
         route: String
+    },
+    data: () => ({
+      vehicleLink: '',
+      departureLink: '',
+      arrivalLink: ''
+    }),
+    mounted() {
+      this.vehicleLink = "/vehicle/" + (this.ticket.type === 'flight' ? 'aircraft' : 'rocket')  + '/' + this.ticket['flight'].aircraftId
+      this.departureLink = "/destination/" + (this.ticket.type === 'flight'? 'airport': 'planet') + '/' + this.ticket['flight'].departureAirportId
+      this.arrivalLink = "/destination/" + (this.ticket.type === 'flight'? 'airport': 'planet') + '/' + this.ticket['flight'].arrivalAirportId
     }
 }
 </script>
 
 <style scoped>
+.logo {
+  width: 80px;
+  left: 300px;
+  position: absolute;
+  opacity: 0.5;
+  z-index: 0;
+}
 #qrcode {
     width: 90px;
     margin-left: 30px;
@@ -391,7 +411,7 @@ body{
 }
 
 .sub-content{
-  background: #e5e5e5;
+  background: #ffffff00;
   width: 100%;
   height: 100px;
   position: absolute;
@@ -400,7 +420,7 @@ body{
 
 .watermark{
   position: absolute;
-  left: 10px;
+  left: 50px;
   top: 0px;
   font-family: Arial;
   font-size: 110px;
@@ -438,17 +458,17 @@ body{
   font-size: 17px;
 }
 
-.gate{
+.aircraft{
   position: absolute;
-  top: 10px;
-  left: 280px;
+  top: 60px;
+  left: 180px;
   font-family: Arial Narrow, Arial;
   font-weight: bold;
   font-size: 14px;
   color: #999;
 }
 
-.gate span{
+.aircraft span{
   color: #555;
   font-size: 17px;
 }
