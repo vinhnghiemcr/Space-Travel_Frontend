@@ -19,3 +19,13 @@ export const GetAllTicketsOfUser = async (id) => {
     const res = await Client.get(`tickets/user/${id}`)
     return res.data
 }
+
+export const CancelTicket = async (id) => {
+    const res = await Client.delete(`tickets/${id}`)
+    return res.data
+}
+
+export const UpdateTicketOfUser = async (id, paseenger) => {
+    const res = await Client.put(`tickets/${id}`, paseenger)
+    return res.data
+}

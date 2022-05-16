@@ -12,10 +12,10 @@
           <div id="siteNotice"></div>
           <h3 id="firstHeading" class="firstHeading">{{airport.name}}</h3>
           <div id="bodyContent">
-            <h5>Location: {{airport.city + ", " + airport. state_full}}</h5>
-            <h5>Elevation: {{airport.elevation}} ft </h5>
-            <h5>Manager: {{airport.manager}}</h5>
-            <h5>Manager phone: {{airport.managerPhone}} </h5>
+            <p><strong>Location:</strong> {{airport.city + ", " + airport. state_full}}</p>
+            <p><strong>Elevation:</strong> {{airport.elevation}} ft </p>
+            <p><strong>Manager:</strong> {{airport.manager}}</p>
+            <p><strong>Manager phone:</strong> {{airport.managerPhone}} </p>
           </div>
         </div>
       </InfoWindow>     
@@ -50,12 +50,5 @@ export default defineComponent({
       console.log(this.center, "Center")
     }
   }
-  // setup() {
-  //   console.log(this.lat, this.lng)
-  //   const center = { lat: this.lat, lng: this.lng };
-  //   const markerOptions = { position: center, label: "L", title: "LADY LIBERTY" };
-  //   const GOOGLE_MAPS_API_KEY = process.env.VUE_APP_GOOGLE_MAPS_API_KEY
-  //   return { center, markerOptions, GOOGLE_MAPS_API_KEY  };
-  // },
 });
 </script>

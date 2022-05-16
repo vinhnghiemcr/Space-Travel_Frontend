@@ -1,12 +1,15 @@
 <template>
     <div v-if="user">
-        <div class="container-fluid">
-            <h3>{{user.fname + ", " + user.lname}}</h3>
-            <h5></h5>
+        <div class="user-name">
+            <h2>{{user.fname + ", " + user.lname}}</h2>
+            <div class="button-container">
+                <b-button variant="outline-primary" v-b-modal.modal-2>Update Profile</b-button>
+                <b-button variant="outline-danger" v-b-modal.modal-1>Delete Profile</b-button>
+            </div>
         </div>
 
         <div>
-            <b-button v-b-modal.modal-1>Delete Profile</b-button>
+            
             <b-modal id="modal-1" title="Deleting Profile" 
             @hidden="resetModal" @show="resetModal" @ok="deleteProfile"
             ok-title="DELETE" ok-variant="danger"
@@ -33,8 +36,7 @@
         </div>
 
 
-        <div>
-            <b-button v-b-modal.modal-2>Update Profile</b-button>
+        <div>            
             <b-modal id="modal-2" title="Update Profile" 
             @hidden="resetModal" @show="resetModal" @ok="updateProfile"
             ok-title="Update" ok-variant="primary"
@@ -99,38 +101,39 @@
             </b-modal>
         </div>
 
-        <b-modal id="modal-3" title="Deleting Profile" 
-            @hidden="resetModal3" @show="resetModal3" @ok="updateTicket"
+        <b-modal id="modal-3" title="Update Passenger Info" 
+            @hidden="resetModal3" @show="fetchInfo" @ok="updateTicket"
             ok-title="Save" ok-variant="success"
               >
                 <div class="mb-3 row">
-                    <label for="pfname" class="col-sm-2 col-form-label"><ui-icon class="icon" >email</ui-icon></label>
+                    <label for="pfname" class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
-                      <b-form-input id="plname" size="md"  v-model="pfname" type="text"  required ></b-form-input>
+                      <b-form-input id="pfname" size="md"  v-model="pfname" type="text"  required ></b-form-input>
                     </div>
                 </div>
                 
                 <div class="mb-3 row">
-                    <label for="plname" class="col-sm-2 col-form-label"><ui-icon >lock</ui-icon></label>
+                    <label for="plname" class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
                         <b-form-input id="plname" size="md"  v-model="plname" type="text"  required ></b-form-input>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="pdob" class="col-sm-2 col-form-label"><ui-icon >lock</ui-icon></label>
+                    <label for="pdob" class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
                         <b-form-input id="pdob" size="md"  v-model="pdob" type="text"  required ></b-form-input>
                     </div>
                 </div>
             </b-modal>
 
-        <div>
+            <b-modal centered  id="modal-4" ok-title="Yes" cancel-title="No"  ok-variant="danger" @ok="cancelTicket" >Are you sure want to cancel?</b-modal>
+        <div >
             <div v-for="ticket in tickets" :key="ticket.id">
                 <TicketCard :ticket="ticket" />
                 <b-button-group class="mx-1 mt-5">
-                    <b-button v-b-modal.modal-3 >Update</b-button>
-                    <b-button>Cancel</b-button>
+                    <b-button v-b-modal.modal-3 @click="() => selectTicket(ticket)">Update</b-button>
+                    <b-button v-b-modal.modal-4 @click="() => selectTicket(ticket)">Cancel</b-button>
                 </b-button-group>
             </div>
         </div>
@@ -140,7 +143,7 @@
 </template>
 
 <script>
-import { GetAllTicketsOfUser } from '../services/Ticket'
+import { GetAllTicketsOfUser, CancelTicket, UpdateTicketOfUser } from '../services/Ticket'
 import { DeleteUser, UpdateUser } from '../services/User'
 import TicketCard from '../components/TicketCard.vue'
 export default {
@@ -158,7 +161,11 @@ export default {
         newPassword: '',
         email: '',
         fname: '',
-        lname: ''
+        lname: '',
+        pfname: '',
+        plname: '',
+        pdob: '',
+        selectedTicket: null
     }),
     mounted(){
         this.getAllTickets()
@@ -193,6 +200,11 @@ export default {
                 this.$emit('setUser', user)
             }
         },
+        fetchInfo(){
+            this.pfname = this.selectedTicket.passenger.fname
+            this.plname = this.selectedTicket.passenger.lname
+            this.pdob = this.selectedTicket.passenger.dob
+        },
         resetModal(){
             this.password = ''
             this.newPassword = ''
@@ -200,7 +212,36 @@ export default {
             this.email = this.user.email
             this.fname = this.user.fname,
             this.lname = this.user.lname
+        },
+        selectTicket(ticket){
+            this.selectedTicket = ticket
+        },
+        async cancelTicket(){
+            await CancelTicket(this.selectedTicket.id)
+            this.getAllTickets()
+        },
+        async updateTicket(){
+            const passenger = {
+                lname: this.plname,
+                fname: this.pfname,
+                dob: this.pdob
+            }
+            await UpdateTicketOfUser(this.selectedTicket.id, passenger)
+            this.getAllTickets()
         }
     }
 }
 </script>
+
+<style scoped>
+    .user-name {
+        margin: 20px 0;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 30px;
+    }
+    
+</style>

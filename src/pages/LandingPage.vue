@@ -16,7 +16,7 @@ export default {
     name: "LandingPage",
     methods: {
         bookNow() {
-            this.$router.push('/booking')
+            this.$router.push('/searching')
         }
     },
 }

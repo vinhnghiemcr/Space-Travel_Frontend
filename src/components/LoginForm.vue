@@ -2,8 +2,8 @@
     <div>
          <b-form @submit="login"  >
             <b-container fluid>
-                <b-row class="my-1">
-                    <b-col sm="2">
+                <b-row class="my-1 row">
+                    <b-col sm="1">
                     <label for="input-small"><ui-textfield-icon>email</ui-textfield-icon></label>
                     </b-col>
                     <b-col sm="4">
@@ -18,8 +18,8 @@
                     </b-col>
                 </b-row>
 
-                <b-row class="my-1">
-                    <b-col sm="2">
+                <b-row class="my-1 row">
+                    <b-col sm="1">
                     <label for="input-default"><ui-textfield-icon >lock</ui-textfield-icon></label>
                     </b-col>
                     <b-col sm="4">
@@ -63,3 +63,16 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+ .row {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 0;
+ }
+
+ button {
+     margin-top: 30px;
+ }
+</style>

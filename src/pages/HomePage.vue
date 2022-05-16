@@ -25,21 +25,21 @@
                     </b-tab>                    
                 </b-tabs>
                 <div class="result" v-if="flights">
-                    Show results here
-                    <FlightCard v-for="flight in flights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" />
+                    Outbound Flights:
+                    <FlightCard v-for="flight in flights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" @click="() => selectFlight(flight)" />
                 </div>
                 <div class="result" v-if="returnFlights">
                     Return Flights:
-                    <FlightCard v-for="flight in returnFlights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" />
+                    <FlightCard v-for="flight in returnFlights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" @click="() => selectFlight(flight)" />
                 </div>
             </div>            
         </b-overlay>
-        <div v-else-if="!issueTicket">
+        <div v-else>
             <BookingForm @bookingTickets="bookingTickets" />
         </div>
-        <div v-else>
+        <!-- <div v-else>
             <TicketContainer :tickets="tickets" />
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -51,7 +51,7 @@ import FlightRoundTripForm from '../components/FlightRoudTripForm.vue'
 import DatePlanetForm from '../components/DatePlanetForm.vue'
 import SpaceFlightRoundTripForm from '../components/SpaceFlightRoundTripForm.vue'
 import FlightCard from '../components/FlightCard.vue'
-import TicketContainer from '../components/TicketContainer.vue'
+// import TicketContainer from '../components/TicketContainer.vue'
 
 import { searchFlight } from '../services/Flight'
 import { BookTicket, UpdateTicket } from '../services/Ticket'
@@ -69,7 +69,8 @@ export default {
         returnFlights: null,
         booking: false,
         issueTicket: false,
-        tickets: []
+        tickets: [],
+        selectedFlights: []
     }),
     components: {
         BookingForm,
@@ -78,7 +79,7 @@ export default {
         DatePlanetForm,
         SpaceFlightRoundTripForm,
         FlightCard,
-        TicketContainer
+        // TicketContainer
     },
     methods: {
         async bookingTickets(passenger) {
@@ -106,14 +107,15 @@ export default {
                 this.returnFlights = res.returnFlights
             }     
             }
-            setTimeout(toggleShow, 1000) 
-
-                    
-                                 
+            setTimeout(toggleShow, 1000)                     
         },
-        toggleBooking(flight){
-            this.flight = flight
-            this.booking = !this.booking
+        selectFlight(flight) {
+            if (!this.selectedFlights.includes(flight)){
+                this.selectedFlights = [...this.selectedFlights, flight]
+            } else {
+                this.selectedFlights = this.selectedFlights.filter((f) => f !== flight)
+            }
+            this.$emit('getFlights', this.selectedFlights )
         }
     }
 

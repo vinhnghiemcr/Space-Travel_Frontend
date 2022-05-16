@@ -1,6 +1,6 @@
 <template>
     <div class="planet-container">
-        <div class="card" style="width: 18rem;" v-for="(planet, i) in planets" :key="i">
+        <div class="card planet" style="width: 18rem;" v-for="(planet, i) in planets" :key="i">
             <img :src="images[i]" class="card-img-top" alt="planet img">
             <div class="card-body">
                 <a :href="'destination/planet/' + IDs[i]" class="btn btn-info">{{planet}}</a>
@@ -44,7 +44,20 @@ export default {
 
 <style scoped>
     .planet-container {
+        /* display: flex;
+        flex-direction: row;
+        flex-wrap: wrap; */
+        width: 100vw;
+        height: 100vh;
+    
         display: grid;
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr, 1fr 
     }
+    planet {
+        flex: 1;
+        width: 50%;
+    }
+
+    
 </style>

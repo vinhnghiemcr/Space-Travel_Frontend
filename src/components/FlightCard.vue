@@ -41,14 +41,18 @@ export default {
             } 
             return  date.getHours() + ':' + minutes + ' CST'
         },
-        handleSelect(){
-            this.$emit('toggleBooking', this.flight)
+        handleSelect(e){
+            // this.$emit('toggleBooking', this.flight)
+            e.target.classList.toggle("selected")
         }     
     }
 }
 </script>
 
 <style scoped>
+    .selected {
+        background-color: darkgreen;
+    }
     .flight-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 0.2fr 1fr 2fr 1fr 1fr;
