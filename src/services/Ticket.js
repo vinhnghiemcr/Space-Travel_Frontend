@@ -11,7 +11,7 @@ export const GetTicket = async (id) => {
     return res.data
 }
 export const UpdateTicket = async (id, qr) => {
-    const res = await Client.put(`/tickets/${id}`, {qr})
+    const res = await Client.put(`/tickets/qr/${id}`, {qr})
     return res.data
 }
 

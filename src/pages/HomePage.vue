@@ -88,6 +88,7 @@ export default {
             const route = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + BASE_URL + ticket.id
             this.createQRCode(route)
             ticket = await UpdateTicket(ticket.id, route )
+            console.log(ticket, "TICKET")
             this.tickets.push(ticket)
             this.issueTicket = true
             this.$emit('setCart', 0)
