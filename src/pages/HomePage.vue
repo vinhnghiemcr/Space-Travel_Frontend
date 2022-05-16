@@ -34,7 +34,7 @@
                 </div>
             </div>            
         </b-overlay>
-        <div v-else-if="issueTicket">
+        <div v-else-if="!issueTicket">
             <BookingForm @bookingTickets="bookingTickets" />
         </div>
         <div v-else>
@@ -90,6 +90,7 @@ export default {
             ticket = await UpdateTicket(ticket.id, route )
             this.tickets.push(ticket)
             this.issueTicket = true
+            this.$emit('setCart', 0)
         },
         async createQRCode(route){
             await axios.get(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${route}`)
@@ -112,6 +113,7 @@ export default {
          toggleBooking(flight){
             this.flight = flight
             this.booking = !this.booking
+            this.$emit('setCart', 1 )
         },
         // selectFlight(flight) {
         //     if (!this.selectedFlights.includes(flight)){

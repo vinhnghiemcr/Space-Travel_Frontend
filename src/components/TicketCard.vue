@@ -60,12 +60,12 @@
                 <span class="watermark">Infinitude</span>
                 <span class="name">PASSENGER NAME<br><span>{{ticket.passenger.fname + ', ' + ticket.passenger.lname}}</span></span>
                 <span class="flight">FLIGHT N&deg;<br><span>{{ticket['flight'].id}}</span></span>
-                <img v-if="ticket.qr" :src="ticket.qr" alt="qrcode" title="" id="qrcode"/>
+                <img v-if="ticket.qr" :src="ticket.qr" alt="QRCde" title="" id="qrcode"/>
                 <span class="boardingtime">BOARDING TIME<br><span>{{ticket['flight'].date + " " + ticket['flight'].time}}</span></span>
                 <span class="aircraft">Vehicle<br><span><router-link :to="vehicleLink" name="Vehicle">{{ticket.type === 'flight' ? ticket['flight']['aircraft'].name : ticket['flight']['rocket'].name}}</router-link></span></span>
                 
                 <span class="flight flightslip">FLIGHT N&deg;<br><span>{{ticket['flight'].id}}</span></span>
-                <span class="seat seatslip"><img  :src="ticket.qr" alt="qrcode" id="qrcode-small" /></span>
+                <span class="seat seatslip"><img  :src="ticket.qr" alt="QRCode" id="qrcode-small" /></span>
                 <span class="name nameslip">PASSENGER NAME<br><span>{{ticket.passenger.fname + ', ' + ticket.passenger.lname}}</span></span>
               </div>
             </div>

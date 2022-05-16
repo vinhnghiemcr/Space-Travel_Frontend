@@ -8,7 +8,7 @@
     </div>     
     
     <main>
-      <router-view @setUser="setUser" :user="user" 
+      <router-view @setUser="setUser" :user="user" @setCart="setCart"
       @getFlights="getFlights"
       :flights="flights"
       ></router-view>
@@ -40,6 +40,9 @@ export default {
     getFlights(flights) {
       this.cart = flights.length
       this.flights = flights
+    },
+    setCart(n){
+      this.cart = n
     }
   }
 }

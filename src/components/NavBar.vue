@@ -30,12 +30,12 @@
                 <li class="nav-item" v-if="user">
                   <a class="nav-link" href="/profile"><ui-icon class="icon">person</ui-icon></a>
                 </li>
-                <li class="nav-item" v-if="user">
+                <!-- <li class="nav-item" v-if="user">
                   <a class="nav-link" href="#"><ui-icon @click="updateProfile" class="icon">manage_accounts</ui-icon></a>
                 </li>
                 <li class="nav-item" v-if="user">
                   <a class="nav-link" href="#" @click="deleteProfile"><ui-icon class="icon">no_accounts</ui-icon></a>
-                </li>
+                </li> -->
                 
                 
                 <li class="nav-item" v-if="user">

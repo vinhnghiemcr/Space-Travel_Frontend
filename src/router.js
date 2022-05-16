@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
-import SearchingPage from './pages/HomePage.vue'
 import ExplorePage from './pages/ExplorePage.vue'
+import SearchingPage from './pages/HomePage.vue'
+// import HomePage from './pages/HomePage.vue'
 import Register from './components/RegisterForm.vue'
 import Login from './components/LoginForm.vue'
 import UserPage from './pages/UserPage.vue'

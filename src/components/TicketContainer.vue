@@ -1,5 +1,5 @@
 <template>
-    <div v-if="tickets">TicketPage
+    <div v-if="tickets">
         <div v-if="screenSize > 600">
             <TicketCard  v-for="ticket in tickets" :key="ticket.id" :ticket="ticket"/>
         </div>
