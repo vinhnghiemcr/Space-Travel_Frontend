@@ -129,11 +129,13 @@
 
             <b-modal centered  id="modal-4" ok-title="Yes" cancel-title="No"  ok-variant="danger" @ok="cancelTicket" >Are you sure want to cancel?</b-modal>
         <div >
-            <div v-for="ticket in tickets" :key="ticket.id">
-                <TicketCard :ticket="ticket" />
-                <b-button-group class="mx-1 mt-5">
-                    <b-button v-b-modal.modal-3 @click="() => selectTicket(ticket)">Update</b-button>
-                    <b-button v-b-modal.modal-4 @click="() => selectTicket(ticket)">Cancel</b-button>
+            <div v-for="ticket in tickets" :key="ticket.id" class="ticket-container">
+                <TicketCard v-if="screenSize > 600" :ticket="ticket" />
+                <VerticalTicket v-else :ticket="ticket" />
+
+                <b-button-group class="mx-1 mt-1">
+                    <b-button variant="outline-primary" v-b-modal.modal-3 @click="() => selectTicket(ticket)">Update</b-button>
+                    <b-button variant="outline-danger" v-b-modal.modal-4 @click="() => selectTicket(ticket)">Cancel</b-button>
                 </b-button-group>
             </div>
         </div>
@@ -146,15 +148,18 @@
 import { GetAllTicketsOfUser, CancelTicket, UpdateTicketOfUser } from '../services/Ticket'
 import { DeleteUser, UpdateUser } from '../services/User'
 import TicketCard from '../components/TicketCard.vue'
+import VerticalTicket from '../components/VerticalTicket.vue'
 export default {
     name: 'UserPage',
     props: {
         user: Object
     },
     components: {
-        TicketCard
+        TicketCard,
+        VerticalTicket
     },
     data: () => ({
+        screenSize: window.innerWidth ,
         tickets: null,
         password: '',
         password2: '',
@@ -234,6 +239,10 @@ export default {
 </script>
 
 <style scoped>
+    
+    .ticket-container {
+        margin-bottom: 30px;
+    }
     .user-name {
         margin: 20px 0;
     }
