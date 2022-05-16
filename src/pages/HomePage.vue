@@ -34,7 +34,7 @@
                 </div>
             </div>            
         </b-overlay>
-        <div v-else-if="!issueTicket">
+        <div v-else-if="issueTicket">
             <BookingForm @bookingTickets="bookingTickets" />
         </div>
         <div v-else>
