@@ -9,9 +9,11 @@ import DestinationPage from './pages/DestinationPage.vue'
 import DisplayTicketPage from './pages/DisplayTicketPage.vue'
 import LandingPage from './pages/LandingPage.vue'
 import BookingPage from './pages/BookingFlightsPage.vue'
+import AboutPage from './pages/AboutPage.vue'
 
 const routes = [
   { path: '/', component: LandingPage, name: 'LandingPage' },
+  { path: '/about', component: AboutPage, name: 'AboutPage' },
   { path: '/explore', component: ExplorePage, name: 'Explore' },
   { path: '/searching', component: SearchingPage, name: 'Searching' },
   { path: '/booking/', component: BookingPage, name: 'Booking' },

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="form-container" >
         <form @submit="onSubmit" >
             <div  class="form-floating mb-3" >
                 <!-- <label for="fname">First Name:</label> -->
@@ -40,3 +40,9 @@ export default {
 
 }
 </script>
+
+<style scoped>
+    .form-container {
+        margin-top: 30px;
+    }
+</style>
