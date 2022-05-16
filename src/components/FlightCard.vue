@@ -41,9 +41,9 @@ export default {
             } 
             return  date.getHours() + ':' + minutes + ' CST'
         },
-        handleSelect(e){
-            // this.$emit('toggleBooking', this.flight)
-            e.target.classList.toggle("selected")
+        handleSelect(){
+            this.$emit('toggleBooking', this.flight)
+            // e.target.classList.toggle("selected")
         }     
     }
 }

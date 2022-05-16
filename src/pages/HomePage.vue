@@ -26,20 +26,20 @@
                 </b-tabs>
                 <div class="result" v-if="flights">
                     Outbound Flights:
-                    <FlightCard v-for="flight in flights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" @click="() => selectFlight(flight)" />
+                    <FlightCard v-for="flight in flights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" />
                 </div>
                 <div class="result" v-if="returnFlights">
                     Return Flights:
-                    <FlightCard v-for="flight in returnFlights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking" @click="() => selectFlight(flight)" />
+                    <FlightCard v-for="flight in returnFlights" :key="flight.id" :flight="flight" @toggleBooking="toggleBooking"  />
                 </div>
             </div>            
         </b-overlay>
-        <div v-else>
+        <div v-else-if="!issueTicket">
             <BookingForm @bookingTickets="bookingTickets" />
         </div>
-        <!-- <div v-else>
+        <div v-else>
             <TicketContainer :tickets="tickets" />
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -51,7 +51,7 @@ import FlightRoundTripForm from '../components/FlightRoudTripForm.vue'
 import DatePlanetForm from '../components/DatePlanetForm.vue'
 import SpaceFlightRoundTripForm from '../components/SpaceFlightRoundTripForm.vue'
 import FlightCard from '../components/FlightCard.vue'
-// import TicketContainer from '../components/TicketContainer.vue'
+import TicketContainer from '../components/TicketContainer.vue'
 
 import { searchFlight } from '../services/Flight'
 import { BookTicket, UpdateTicket } from '../services/Ticket'
@@ -79,7 +79,7 @@ export default {
         DatePlanetForm,
         SpaceFlightRoundTripForm,
         FlightCard,
-        // TicketContainer
+        TicketContainer
     },
     methods: {
         async bookingTickets(passenger) {
@@ -109,14 +109,18 @@ export default {
             }
             setTimeout(toggleShow, 1000)                     
         },
-        selectFlight(flight) {
-            if (!this.selectedFlights.includes(flight)){
-                this.selectedFlights = [...this.selectedFlights, flight]
-            } else {
-                this.selectedFlights = this.selectedFlights.filter((f) => f !== flight)
-            }
-            this.$emit('getFlights', this.selectedFlights )
-        }
+         toggleBooking(flight){
+            this.flight = flight
+            this.booking = !this.booking
+        },
+        // selectFlight(flight) {
+        //     if (!this.selectedFlights.includes(flight)){
+        //         this.selectedFlights = [...this.selectedFlights, flight]
+        //     } else {
+        //         this.selectedFlights = this.selectedFlights.filter((f) => f !== flight)
+        //     }
+        //     this.$emit('setCart', this.selectedFlights )
+        // }
     }
 
 }
